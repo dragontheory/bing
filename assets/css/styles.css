@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300&display=swap');
+@import url('https://fonts.cdnfonts.com/css/agencyfb-2');
+
 /* RESET  */
 *:before, *:after, *, ::after, ::before {box-sizing: border-box;}
 body {padding: 0; margin: 0;}
+
+:root {
+  /* Theme | Dark */
+  --bg: 19,20,23,1.0;
+  --bg-02: 39,49,54,1.0;
+  --bg-panel: 255,255,255,0.05;
+  --bg-active: 255,255,255,0.05;
+  --bg-accent: 48,190,255,0.5;
+  --bg-grd: linear-gradient(180deg, 
+            rgba(50,70,80,0.9) 0, 
+            #0d101b 100%);
+  --txt-color: 255,255,255,0.7;
+  --txt-active: 255,255,255,1.0;
+  --txt-muted: 255,255,255,0.5;
+  --txt-shadow: -1px 1px rgba(0,0,0,1.0);
+}
 
 /* Define some variables for gaps and breakpoints */
 
@@ -133,4 +152,12 @@ footer {grid-area: footer;}
   #nav-toggle:checked ~ nav { /* If the checkbox is checked, move the nav into view */
    transform: translateX(calc(100vw - (2 * var(--gap))));
   }
+}
+
+body {
+  background-color: rgba(var(--bg));
+  color: rgba(var(--txt-color));
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1rem;
+  text-shadow: var(--txt-shadow);
 }
