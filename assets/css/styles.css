@@ -38,10 +38,10 @@ body {padding: 0; margin: 0;}
 
 /* Use media queries to adjust gaps based on screen size and orientation */
 
-@media (--breakpoint-small-screen-portrait-mode) {--gap: --gap-small-screen-portrait-mode;}
-@media (--breakpoint-small-screen-landscape-mode) {--gap: --gap-small-screen-landscape-mode;}
-@media (--breakpoint-large-screen-portrait-mode) {--gap: --gap-large-screen-portrait-mode;}
-@media (--breakpoint-large-screen-landscape-mode) {--gap: --gap-large-screen-landscape-mode;}
+@media (--breakpoint-small-screen-portrait-mode) {--gap: var(--gap-small-screen-portrait-mode);}
+@media (--breakpoint-small-screen-landscape-mode) {--gap: var(--gap-small-screen-landscape-mode);}
+@media (--breakpoint-large-screen-portrait-mode) {--gap: var(--gap-large-screen-portrait-mode);}
+@media (--breakpoint-large-screen-landscape-mode) {--gap: var(--gap-large-screen-landscape-mode);}
 
 /* Use media queries to adjust themes based on user preference */
 
