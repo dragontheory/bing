@@ -1,0 +1,135 @@
+/* RESET  */
+*:before, *:after, *, ::after, ::before {box-sizing: border-box;}
+body {padding: 0; margin: 0;}
+
+/* Define some variables for gaps and breakpoints */
+
+@container app-container {
+  
+--gap-small-screen-portrait-mode: .5rem;
+--gap-small-screen-landscape-mode: .75rem;
+--gap-large-screen-portrait-mode: .75rem;
+--gap-large-screen-landscape-mode: .75rem;
+
+--breakpoint-small-screen-portrait-mode: max-width(600px) max-height(800px);
+--breakpoint-small-screen-landscape-mode: max-width(800px) max-height(600px);
+--breakpoint-large-screen-portrait-mode: max-width(800px) max-height(1200px);
+--breakpoint-large-screen-landscape-mode: max-width(1200px) max-height(800px);
+}
+/* Use media queries to adjust gaps based on screen size and orientation */
+
+@media (--breakpoint-small-screen-portrait-mode) {--gap: --gap-small-screen-portrait-mode;}
+@media (--breakpoint-small-screen-landscape-mode) {--gap: --gap-small-screen-landscape-mode;}
+@media (--breakpoint-large-screen-portrait-mode) {--gap: --gap-large-screen-portrait-mode;}
+@media (--breakpoint-large-screen-landscape-mode) {--gap: --gap-large-screen-landscape-mode;}
+
+/* Use media queries to adjust themes based on user preference */
+
+:root {
+  --light-theme: #EEEEEE;
+  --dark-theme: #222222;
+  --primary-color: #FF0000;
+  --secondary-color: #00FF00;
+}
+
+@media (prefers-color-scheme: light) {
+  app-container {
+    background-color: var(--light-theme);
+    color: var(--dark-theme);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  app-container {
+    background-color: var(--dark-theme);
+    color: var(--light-theme);
+  }
+}
+
+/* Style the app-container element as a grid container */
+
+app-container {display: grid;}
+
+/* Use container queries to adjust layout based on container size and context */
+
+@container (min-width > min-height) { 
+   /* If container is wider than taller, use horizontal layout */
+   grid-template-areas:
+     "header header header"
+     "nav main aside"
+     "footer footer footer";
+   grid-template-columns:
+     minmax(var(--gap), calc((100vw - (4 * var(--gap))) /3))
+     minmax(var(--gap), calc((100vw - (4 * var(--gap))) /3))
+     minmax(var(--gap), calc((100vw - (4 * var(--gap))) /3));
+   grid-template-rows:
+     minmax(var(--gap), calc((100vh - (4 * var(--gap))) /3))
+     minmax(var(--gap), calc((100vh - (4 * var(--gap))) /3))
+     minmax(var(--gap), calc((100vh - (4 * var(--gap))) /3));
+}
+
+@container (min-width < min-height) { 
+   /* If container is taller than wider, use vertical layout */
+   grid-template-areas:
+     "header"
+     "nav"
+     "main"
+     "aside"
+     "footer";
+   grid-template-columns: 1fr;
+   grid-template-rows:
+     minmax(var(--gap), calc((100vh - (6 * var(--gap))) /5))
+     minmax(var(--gap), calc((100vh - (6 * var(--gap))) /5))
+     minmax(var(--gap), calc((100vh - (6 * var(--gap))) /5))
+     minmax(var(--gap), calc((100vh - (6 * var(--gap))) /5))
+     minmax(var(--gap), calc((100vh - (6 * var(--gap))) /5));
+}
+
+/* Assign each section to its corresponding grid area */
+
+header {grid-area: header;}
+nav {grid-area: nav;}
+main {grid-area: main;}
+aside {grid-area: aside;}
+footer {grid-area: footer;}
+
+/* Style the label as a button */
+#nav-button {display: none; /* Hide it by default */}
+
+@media (--breakpoint-small-screen-portrait-mode) or (--breakpoint-small-screen-landscape-mode) { /* Show it only on smaller screens */
+  
+#nav-button {
+    display: block; /* Show it as a block element */
+    position: fixed; /* Position it fixed on the top left corner */
+    top: var(--gap); /* Add some gap from the top */
+    left: var(--gap); /* Add some gap from the left */
+    width: calc(5rem - (2 * var(--gap))); /* Give it some width minus gaps */
+    height: calc(5rem - (2 * var(--gap))); /* Give it some height minus gaps */
+    background-color: var(--primary-color); /* Use a primary color for background */
+    color: var(--light-theme); /* Use a light color for text */
+    font-size: calc(2rem - (2 * var(--gap))); /* Use a large font size minus gaps */
+    text-align: center; /* Center the text */
+    line-height: calc(5rem - (2 * var(--gap))); /* Align the text vertically */
+    cursor: pointer; /* Change the cursor to pointer */
+    z-index: 10; /* Bring it above other elements */
+}
+
+/* Style the nav element based on the checkbox state */
+nav {
+   position: fixed; /* Position it fixed on the left side */
+   top: -100vh; /* Move it out of view by default */
+   left: -100vw;
+   width: calc(100vw - (2 * var(--gap))); /* Make it full width minus gaps */
+   height: calc(100vh - (2 * var(--gap))); /* Make it full height minus gaps */
+   margin-top: var(--gap); /* Add some margin for gaps */
+   margin-left: var(--gap);
+   background-color: var(--secondary-color); /* Use a secondary color for background */
+   color: var(--dark-theme); /* Use a dark color for text */
+   overflow-y: auto; /* Enable scrolling if needed */
+   transition: transform .3s ease-in-out; /* Add some transition for smoothness */
+}
+
+#nav-toggle:checked ~ nav { /* If the checkbox is checked, move the nav into view */
+   transform: translateX(calc(100vw - (2 * var(--gap))));
+  }
+}
