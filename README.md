@@ -1,2 +1,2 @@
-# bing
+# Bing made
 Made by Bing
